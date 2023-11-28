@@ -110,7 +110,7 @@ void removerLinhaPorChave(Tabela *tabela, int chavePrimaria) {
     }
 }
 
-//PRINTA A TABELA NO FORMATO ASCII
+//PRINTA A TABELA NO FORMATO ASCII. AINDA ESTÁ INCOMPLETA
 void mostrarTabela(Tabela *tabela) {
     // Verificar se a tabela está vazia
     if (tabela->linhas == 0) {
