@@ -80,6 +80,76 @@ void liberarTabela(Tabela *tabela) {
     free(tabela);
 }
 
+//REMOVE LINHA PELA POR CHAVE PRIMARIA
+void removerLinhaPorChave(Tabela *tabela, int chavePrimaria) {
+    int linhaParaRemover = -1;
+
+    // Encontrar a linha com a chave primária especificada
+    for (int i = 0; i < tabela->linhas; i++) {
+        if (tabela->table[i][0].intVal == chavePrimaria) {
+            linhaParaRemover = i;
+            break;
+        }
+    }
+
+    // Se a linha foi encontrada, removê-la
+    if (linhaParaRemover != -1) {
+        // Libere a memória da linha
+        free(tabela->table[linhaParaRemover]);
+
+        // Mova todas as linhas após a removida para "cima" no array
+        for (int i = linhaParaRemover; i < tabela->linhas - 1; i++) {
+            tabela->table[i] = tabela->table[i + 1];
+        }
+
+        // Realoque o array da tabela para ter uma linha a menos
+        tabela->table = realloc(tabela->table, (tabela->linhas - 1) * sizeof(Celula*));
+        tabela->linhas--;
+    } else {
+        printf("Chave primária não encontrada.\n");
+    }
+}
+
+//PRINTA A TABELA NO FORMATO ASCII. AINDA ESTÁ INCOMPLETA
+void mostrarTabela(Tabela *tabela) {
+    // Verificar se a tabela está vazia
+    if (tabela->linhas == 0) {
+        printf("A tabela está vazia.\n");
+        return;
+    }
+
+    // Cabeçalho da Tabela
+    for (int i = 0; i < tabela->colunas; i++) {
+        printf("| %s ", tabela->nomeColuna[i]);
+    }
+    printf("|\n");
+
+    // Linha Separadora
+    for (int i = 0; i < tabela->colunas; i++) {
+        printf("+-----");
+    }
+    printf("+\n");
+
+    // Dados da Tabela
+    for (int i = 0; i < tabela->linhas; i++) {
+        for (int j = 0; j < tabela->colunas; j++) {
+            // Exemplo de exibição: ajuste conforme os tipos de dados e formatação
+            if (j == 0) {  // Supondo que a primeira coluna seja de inteiros
+                printf("| %d ", tabela->table[i][j].intVal);
+            } else {  // Supondo que as outras colunas sejam strings
+                printf("| %s ", tabela->table[i][j].strVal);
+            }
+        }
+        printf("|\n");
+    }
+
+    // Linha Final
+    for (int i = 0; i < tabela->colunas; i++) {
+        printf("+-----");
+    }
+    printf("+\n");
+}
+
 int main(){
 	
 
