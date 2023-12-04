@@ -272,6 +272,7 @@ Tabela* carregarTabela(const char* nomeTabela) {
             fclose(arquivo);
             return NULL;
         }
+        token[strcspn(token, "\n")] = '\0';
         tabela->nomeColuna[i] = strdup(token);
         token = strtok(NULL, ",");
     }
