@@ -33,7 +33,7 @@ int main(){
     bool executando = true, aviso = false;
     Tabela *lambda = NULL;
     while (executando) {
-       //limparTela(); // Para Qualquer Sistema;
+        //limparTela(); // Para Qualquer Sistema;
 
         // Exibe o menu principal
         printf("========================================\n");
@@ -75,7 +75,7 @@ int main(){
                 if (lambda != NULL) {
                     liberarTabela(lambda); // Libera a tabela anterior se existir
                 }
-                lambda = criarTabela(1, colunas, nome);
+                lambda = construtorTabela(1, colunas, nome);
                 break;
             case 2:
                 if (lambda != NULL)
@@ -136,7 +136,7 @@ int main(){
                 if(lambda != NULL) {
                     liberarTabela(lambda); // Libera a tabela anterior se existir
                 }
-                carregarTabela(lambda,nome);
+                lambda = carregarTabela(nome);
                 break;
             case 8:
                 listarTabelas();
