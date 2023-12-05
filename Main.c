@@ -36,19 +36,24 @@ int main(){
         limparTela(); // Para Qualquer Sistema;
 
         // Exibe o menu principal
-        printf("========================================\n");
-        printf("|             MENU PRINCIPAL            |\n");
-        printf("========================================\n");// CRIADORES
-        printf("| 1. Criar Nova Tabela                  |      Feito Por:\n");
-        printf("| 2. Adicionar dados na tabela          |\n");
-        printf("| 3. Visualizar Tabela                  |    Geraldo Filho\n");
-        printf("| 4. Remover Linha                      |           e\n");
-        printf("| 5. Pesquisar Valor                    |    Miguel Arcanjo\n");
-        printf("| 6. Salvar Tabela                      |\n");
-        printf("| 7. Selecionar Tabela                  |\n");
-        printf("| 8. Listar Tabelas                     |\n");
-        printf("| 9. Sair                               |\n");
-        printf("========================================");
+        printf("=======================================================================\n");
+        printf("|                         MENU PRINCIPAL                              |\n");
+        printf("=======================================================================\n");
+        printf("| Criação e Seleção de Tabelas:         |  Autores:                   |\n");
+        printf("| 1. Criar Nova Tabela                  |    - Geraldo Filho          |\n");
+        printf("| 2. Selecionar Tabela                  |    - Miguel Arcanjo         |\n");
+        printf("| 3. Listar Tabelas                     |                             |\n");
+        printf("|---------------------------------------|                             |\n");
+        printf("| Manipulação de Dados:                 |                             |\n");
+        printf("| 4. Adicionar dados na tabela          |                             |\n");
+        printf("| 5. Visualizar Tabela                  |                             |\n");
+        printf("| 6. Remover Linha                      |                             |\n");
+        printf("| 7. Pesquisar Valor                    |                             |\n");
+        printf("|---------------------------------------|                             |\n");
+        printf("| Gerenciamento de Tabela:              |                             |\n");
+        printf("| 8. Salvar Tabela                      |                             |\n");
+        printf("| 9. Sair                               |                             |\n");
+        printf("=======================================================================");
         if (lambda != NULL)
         {
             printf("=> Tabela selecionada: %s\n", lambda->nome); //MOSTRA TABELA SELECIONADA
@@ -89,54 +94,7 @@ int main(){
                 }
                 lambda = construtorTabela(1, colunas, nome);
                 break;
-            case 2: // ADICIONAR DADOS A TABELA
-                if (lambda != NULL)
-                {
-                    limparTela();
-                    printf("Tabela selecionada: %s\n", lambda->nome);
-                    printf("Quando você não quiser mais adicionar dados a tabela digite -> Fim <-\n");
-                    PegarDados(lambda);
-                }else{
-                    aviso = true;
-                }
-                break;
-            case 3://MOSTRAR TABELA NA TELA
-                if (lambda != NULL)
-                {
-                    printf("Tabela selecionada: %s\n", lambda->nome);
-                    limparTela();
-                    mostrarTabela(lambda);  
-                }else{
-                    aviso = true;
-                }
-                break;
-            case 4://REMOVER LINHA DA TABELA
-                if (lambda != NULL)
-                {
-                    limparTela();
-                    printf("Tabela selecionada: %s\n", lambda->nome);
-                    printf("Qual a chave da linha que você quer apagar da tabela '%s': \n", lambda->nome);
-                    scanf("%d", &chave);
-                    removerLinhaPorChave(lambda, chave);
-                }else{
-                    aviso = true;
-                }
-                break;
-            case 5://PESQUISAR POR VALORES NA TABELA
-                limparTela();
-                if (lambda != NULL)
-                {
-                    pesquisaValor(lambda);
-                }else{
-                    aviso = true;
-                }
-                break;
-            case 6://SALVAR TABELA NO BANCO DE DADOS
-                if (lambda != NULL) {
-                    salvarArquivo(lambda);
-                }else{aviso = true;}
-                break;
-            case 7://CARREGAR ALGUMA TABELA DO BANCO DE DADOS
+            case 2: // CARREGAR TABELA
                 //depois que criar o listar tabelas, pode colocar aqui em cima os nomes
                 printf("Digite o nome de uma tabela: ");
                 if (fgets(nome, sizeof(nome), stdin) != NULL) {
@@ -151,8 +109,58 @@ int main(){
                 }
                 lambda = carregarTabela(nome);
                 break;
-            case 8://LISTAR TODAS AS TABELAS EXISTENTES NO BANCO DE DADOS
+            case 3://LISTAR TABELAS EXISTENTES
                 listarTabelas();
+                break;
+                
+            case 4://ADICIONAR DADOS NA TABELA SELECIONADA
+                if (lambda != NULL)
+                {
+                    limparTela();
+                    printf("Tabela selecionada: %s\n", lambda->nome);
+                    printf("Quando você não quiser mais adicionar dados a tabela digite -> Fim <-\n");
+                    PegarDados(lambda);
+                }else{
+                    aviso = true;
+                }
+                break;
+            case 5://MOSTRAR TABELA SELECIONADA
+                if (lambda != NULL)
+                {
+                    printf("Tabela selecionada: %s\n", lambda->nome);
+                    limparTela();
+                    mostrarTabela(lambda);  
+                }else{
+                    aviso = true;
+                }
+                break;
+                
+            case 6://REMOVE LINHA POR CHAVE
+                if (lambda != NULL)
+                {
+                    limparTela();
+                    printf("Tabela selecionada: %s\n", lambda->nome);
+                    printf("Qual a chave da linha que você quer apagar da tabela '%s': \n", lambda->nome);
+                    scanf("%d", &chave);
+                    removerLinhaPorChave(lambda, chave);
+                }else{
+                    aviso = true;
+                }
+                break;
+            case 7://PESQUISA VALOR NA TABELA
+                limparTela();
+                if (lambda != NULL)
+                {
+                    pesquisaValor(lambda);
+                }else{
+                    aviso = true;
+                }
+                break;
+            case 8://SALVA TABELA NO BANCO DE DADOS
+
+                if (lambda != NULL) {
+                    salvarArquivo(lambda);
+                }else{aviso = true;}
                 break;
             case 9://SAIR DO PROGRAMA
                 executando = false;
