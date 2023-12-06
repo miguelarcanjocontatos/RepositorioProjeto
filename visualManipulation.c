@@ -73,8 +73,6 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
         if(tabela != NULL){
         	if(*quadrodeavisos->tabelaCarregada){
             	printf(" Tabela:                     |\n");
-        	}else{
-        		printf("                             |\n");
         	}
     	}
         if(*quadrodeavisos->invalido){
@@ -115,8 +113,6 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
                 	}
                 	printf("  |\n");
             	}
-        	}else{
-        		printf("                             |\n");
         	}
         }
 
