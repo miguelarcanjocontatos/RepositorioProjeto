@@ -18,7 +18,7 @@ void tabelaSelecionada(Tabela *tabela) {
 
     if (tabela != NULL) {
         strncpy(nometabela, tabela->nome, sizeof(nometabela) - 1);
-        nometabela[sizeof(nometabela) - 1] = '\0'; // Garante que a string seja terminada corretamente
+		nometabela[sizeof(nometabela) - 1] = '\0'; // Garante que a string seja terminada corretamente
 
         nometabela[99] = '\0'; // Garante que a string seja terminada corretamente
         
@@ -78,10 +78,10 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
             printf(" Tabela:                     |\n");
         }
         if(tabela != NULL){
-            if(*quadrodeavisos->tabelaCarregada){
-                printf(" Tabela:                     |\n");
-            }
-        }
+        	if(*quadrodeavisos->tabelaCarregada){
+            	printf(" Tabela:                     |\n");
+        	}
+    	}
         if(*quadrodeavisos->invalido){
             printf(" Opção inválida!             |\n");
         }
@@ -107,7 +107,7 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
         }
         if(*quadrodeavisos->tabelaCarregada){
             if(tabela != NULL){
-                if(tamanhoNome > 21)
+            	if(tamanhoNome > 21)
                 {
                     printf(" ");
                     int tamanho = strlen(nometabela), diferenca = 0;
@@ -129,7 +129,6 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
                     printf(" %-*s",quantidadeDeEspacos - diferenca/2, nometabela);
                     printf("  |\n");
                 }
-            }
         }
 
         if(*quadrodeavisos->invalido){
@@ -144,10 +143,10 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
             printf("                             |\n");
         }
         if(tabela != NULL){
-            if(*quadrodeavisos->tabelaCarregada){
-                printf("                             |\n");
-            }
-        }
+        	if(*quadrodeavisos->tabelaCarregada){
+            	printf("                             |\n");
+        	}
+    	}
         if(*quadrodeavisos->invalido){
             printf(" tecla para continuar.       |\n");
         }
@@ -160,8 +159,8 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
             printf(" Foi salva com sucesso!      |\n");
         }
         if(*quadrodeavisos->tabelaCarregada){
-            if(tabela != NULL){
-                printf(" Carregada com sucesso!      |\n");
+        	if(tabela != NULL){
+            	printf(" Carregada com sucesso!      |\n");
             }
         }
         if(*quadrodeavisos->invalido){
@@ -176,10 +175,10 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
             printf("                             |\n");
         }
         if(tabela != NULL){
-            if(*quadrodeavisos->tabelaCarregada){
-                printf("                             |\n");
-            }
-        }
+        	if(*quadrodeavisos->tabelaCarregada){
+            	printf("                             |\n");
+        	}
+    	}
         if(*quadrodeavisos->invalido){
             printf("                             |\n");
         }
@@ -191,7 +190,7 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
 (*quadrodeavisos->linhaAviso)++;
 
 
-}
+}}
 
 void interfaceCriarTabela(Tabela **lambda) {
     int colunas, chave;
