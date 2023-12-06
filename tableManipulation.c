@@ -148,6 +148,77 @@ const char* tipoParaString(DataType tipo)
     }
 }
 
+//CONSTRUTOR DE TABELA
+Tabela* construtorTabela(int linhas, int colunas, char nome[]) 
+{
+    // Aloca memória para a estrutura Tabela
+    Tabela* newTable = alocarTabela(linhas, colunas);
+    if (newTable == NULL) 
+    {
+        printf("Falha na alocação de memória para Tabela.\n");
+        return NULL;
+    }
+
+    // Define o nome da tabela
+    strncpy(newTable->nome, nome, TAMANHO_MAX_NOME);
+
+    // Preenche informações sobre colunas e tipos
+    char linhaEntrada[100];
+    char nomeColuna[TAMANHO_MAX_NOME];
+    int tipo;
+
+    for (int i = 0; i < colunas; i++) 
+    {
+
+        if (i == 0) 
+         {
+            do
+            {
+                printf("Nome da coluna %d (Chave primária): ", i + 1);
+                fgets(linhaEntrada, 100, stdin);
+                // Verifica se a entrada contém ponto e vírgula, indicando uma tentativa de definir um tipo
+                if (strchr(linhaEntrada, ';') != NULL)
+                {
+                    printf("Não é permitido definir um tipo para a chave primária. Por favor, insira apenas o nome.\n");
+                    nomeColuna[0] = '\0'; // Reseta o nome da coluna para forçar o loop
+                    continue;
+                }
+                sscanf(linhaEntrada, "%49[^\n]", nomeColuna);
+            } while (nomeColuna[0] == '\0'); // Repete se o nome da coluna for vazio
+
+            newTable->nomeColuna[i] = strdup(nomeColuna);
+            newTable->tiposColuna[i] = INT_TYPE;
+        } 
+        else 
+        {
+            do
+            {
+                printf("Nome e tipo da coluna %d: ", i + 1);
+                fgets(linhaEntrada, 100, stdin);
+                sscanf(linhaEntrada, "%49[^;];%d", nomeColuna, &tipo);
+            } while (nomeColuna[0] == '\0' || strchr(linhaEntrada, ';') == NULL); // Repete se o nome da coluna for vazio ou se não houver separador para o tipo
+
+            newTable->nomeColuna[i] = strdup(nomeColuna);
+
+            switch (tipo) 
+            {
+                case 1: newTable->tiposColuna[i] = STRING_TYPE; break;
+                case 2: newTable->tiposColuna[i] = INT_TYPE; break;
+                case 3: newTable->tiposColuna[i] = FLOAT_TYPE; break;
+                default:
+                    printf("Tipo inválido. Atribuindo como texto.\n");
+                    newTable->tiposColuna[i] = STRING_TYPE;
+            }
+        }
+    }
+
+    // Aloca memória para as células da tabela
+    alocarMemoriaTabela(newTable);
+
+    return newTable;
+}
+
+
 //REMOVE LINHA PELA POR CHAVE PRIMARIA
 void removerLinhaPorChave(Tabela *tabela, int chavePrimaria) 
 {
@@ -427,27 +498,47 @@ void PegarDados(Tabela *tabela)
         //FAZ A VERIFICAÇÃO SE A CHAVE PRIMARIA INSERIDA JA EXISTE NA TABELA
         do 
         {
-            inteiro = true;
+            int chave;
+            char buffer[100];
+            bool continuar = true, chaveValida = false;
+            char *endPtr;
+
             printf("Digite o valor para a chave primária: ");
             fgets(buffer, sizeof(buffer), stdin);
+
+            // Verifica se o usuário digitou "Fim"
             if (strcmp(buffer, "Fim\n") == 0) 
             {
                 continuar = false;
                 chaveValida = true;
                 break;
             }
+
+            // Converte a entrada em um inteiro
+            chave = strtol(buffer, &endPtr, 10);
+
+            // Verifica se a entrada não é um número inteiro puro
             if (*endPtr != '\n' && *endPtr != '\0') 
             {
                 printf("Tipo de chave inválida, a chave precisa ser um número inteiro puro.\n");
                 continue;
             }
 
+            // Verifica se a chave é negativa
+            if (chave < 0)
+            {
+                printf("A chave primária não pode ser negativa. Por favor, insira um número positivo.\n");
+                continue;
+            }
+
+            // Aqui, inserir a função verificarChave que checa se a chave já existe na tabela
             chaveValida = verificarChave(tabela, chave);
             if (!chaveValida) 
             {
                 printf("Chave primária já existe. Por favor, insira uma chave primária única.\n");
             }
-        } while (!chaveValida);
+
+        } while (!chaveValida && continuar);
         if (!continuar)
         {
             break;
