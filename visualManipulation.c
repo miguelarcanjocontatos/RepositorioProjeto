@@ -81,7 +81,9 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
         	if(*quadrodeavisos->tabelaCarregada){
             	printf(" Tabela:                     |\n");
         	}
-    	}
+    	}else{
+            printf("                             |\n");
+        }
         if(*quadrodeavisos->invalido){
             printf(" Opção inválida!             |\n");
         }
@@ -129,6 +131,9 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
                     printf(" %-*s",quantidadeDeEspacos - diferenca/2, nometabela);
                     printf("  |\n");
                 }
+        }else{
+            printf("                             |\n");
+        }
         }
 
         if(*quadrodeavisos->invalido){
@@ -146,7 +151,9 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
         	if(*quadrodeavisos->tabelaCarregada){
             	printf("                             |\n");
         	}
-    	}
+    	}else{
+            printf("                             |\n");
+        }
         if(*quadrodeavisos->invalido){
             printf(" tecla para continuar.       |\n");
         }
@@ -161,6 +168,8 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
         if(*quadrodeavisos->tabelaCarregada){
         	if(tabela != NULL){
             	printf(" Carregada com sucesso!      |\n");
+            }else{
+                printf("                             |\n");
             }
         }
         if(*quadrodeavisos->invalido){
@@ -178,7 +187,9 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
         	if(*quadrodeavisos->tabelaCarregada){
             	printf("                             |\n");
         	}
-    	}
+    	}else{
+                printf("                             |\n");
+            }
         if(*quadrodeavisos->invalido){
             printf("                             |\n");
         }
@@ -190,7 +201,7 @@ if(*quadrodeavisos->quadroAvisosAtivo == 0){
 (*quadrodeavisos->linhaAviso)++;
 
 
-}}
+}
 
 void interfaceCriarTabela(Tabela **lambda) {
     int colunas, chave;

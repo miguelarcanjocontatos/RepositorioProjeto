@@ -289,26 +289,31 @@ void pesquisaValor(Tabela *tabela)
         {
             // Imprime a linha completa que corresponde à pesquisa
             for (int j = 0; j < tabela->colunas; j++) 
-            {
-                switch (tabela->tiposColuna[j]) 
-                {
-                    case INT_TYPE:
-                        printf("| %-*d ", larguras[j], tabela->table[i][j].intVal);
-                        break;
-                    case STRING_TYPE:
-                        int tamanho = strlen(tabela->table[i][j].strVal), diferenca = 0;
-                        char sup;
-                        for (int k = 0; k < tamanho; k++)
-                        {
-                            sup = remove_acento(tabela->table[i][j].strVal[k], &diferenca);
-                        }
-                        printf("| %-*s ", larguras[j]-(diferenca/2), tabela->table[i][j].strVal);
-                        break;
-                    case FLOAT_TYPE:
-                        printf("| %-*.2f ", larguras[j], tabela->table[i][j].floatVal);
-                        break;
-                }
-            }
+			{
+			    switch (tabela->tiposColuna[j]) 
+			    {
+			        case INT_TYPE:
+			            printf("| %-*d ", larguras[j], tabela->table[i][j].intVal);
+			            break;
+			        case STRING_TYPE:
+			        {
+			            char sup;
+			            int tamanho = strlen(tabela->table[i][j].strVal);
+			            int diferenca = 0;
+			
+			            for (int k = 0; k < tamanho; k++)
+			            {
+			                sup = remove_acento(tabela->table[i][j].strVal[k], &diferenca);
+			            }
+			            printf("| %-*s ", larguras[j] - (diferenca / 2), tabela->table[i][j].strVal);
+			            break;
+			        }
+			        case FLOAT_TYPE:
+			            printf("| %-*.2f ", larguras[j], tabela->table[i][j].floatVal);
+			            break;
+			    }
+			}
+
             printf("|\n");
         }
     }
