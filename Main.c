@@ -61,6 +61,7 @@ int main(){
         //Reiniciando variavel dos ponteiros da função quadroDeAvisos();
         *(quadrodeavisos->aviso) = 0;
         *(quadrodeavisos->quadroAvisosAtivo) = 0;
+        *(quadrodeavisos->tabelaCarregada) = 0;
         *(quadrodeavisos->linhaAviso) = 0;
         *(quadrodeavisos->salvo) = 0;
         *(quadrodeavisos->invalido) = 0;
